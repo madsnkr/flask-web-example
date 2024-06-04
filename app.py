@@ -2,7 +2,9 @@ from flask import Flask
 from redis import Redis
 
 app = Flask(__name__)
-redis = Redis(host="redis", decode_responses=True)
+
+app.config.from_prefixed_env("REDIS")
+redis = Redis(host=app.config["HOST"], port=app.config["PORT"], decode_responses=True)
 
 
 @app.route("/")

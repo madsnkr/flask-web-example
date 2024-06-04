@@ -9,8 +9,11 @@ LABEL org.opencontainers.image.description="An example flask webapp"
 LABEL org.opencontainers.image.url="https://github.com/madsnkr/flask-web-example"
 LABEL org.opencontainers.image.source="https://github.com/madsnkr/flask-web-example"
 
-ENV PORT 8000
-EXPOSE ${PORT}
+ENV REDIS_HOST redis
+ENV REDIS_PORT 6379
+ENV WEB_PORT 8000
+
+EXPOSE ${WEB_PORT}
 
 RUN addgroup -S app && adduser -S app -G app
 
