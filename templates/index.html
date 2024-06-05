@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flask Web Example</title>
+  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+  <main id="main">
+    <h1 id="heading">Welcome to a Flask Example App!</h1>
+    <ul>
+      <li>
+        Total views: {{ counter }}
+      </li>
+      <li>
+        Total visitors: {{ unique_visitors }}
+      </li>
+    </ul>
+  </main>
+</body>
+
+</html>
