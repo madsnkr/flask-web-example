@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template, request
 from redis import Redis
 
 app = Flask(__name__)
@@ -8,7 +8,19 @@ redis = Redis(host=app.config["HOST"], port=app.config["PORT"], decode_responses
 
 
 @app.route("/")
-def hello_world():
+def index():
+    ua = request.headers.get("User-Agent")
+    ip = request.remote_addr
+
+    visitor = f"{ua}_{ip}"
+
+    redis.pfadd("visitors", visitor)
+
+    unique_visitors = redis.pfcount("visitors")
+
     redis.incr("views")
     counter = str(redis.get("views"))
-    return f"<h1>This page has been viewed {counter} times!</h1>"
+
+    return render_template(
+        "index.html", counter=counter, unique_visitors=unique_visitors
+    )
